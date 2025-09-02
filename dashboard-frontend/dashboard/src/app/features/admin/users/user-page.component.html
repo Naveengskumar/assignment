@@ -24,19 +24,19 @@
     <form *ngIf="activeTab()==='single'" [formGroup]="form" (ngSubmit)="onCreate()" class="add" novalidate>
       <div class="field">
         <label for="name">Name</label>
-        <input id="name" formControlName="name" placeholder="Jane Doe" />
+        <input id="name" formControlName="name" placeholder="" />
         <div class="messages"><small class="error" *ngIf="showError('name')">{{ msgFor('name') }}</small></div>
       </div>
 
       <div class="field">
         <label for="email">Email</label>
-        <input id="email" formControlName="email" type="email" placeholder="jane@example.com" />
+        <input id="email" formControlName="email" type="email" placeholder="" />
         <div class="messages"><small class="error" *ngIf="showError('email')">{{ msgFor('email') }}</small></div>
       </div>
 
       <div class="field">
         <label for="password">Password</label>
-        <input id="password" formControlName="password" type="password" placeholder="StrongPass#1" />
+        <input id="password" formControlName="password" type="password" placeholder="" />
         <div class="messages">
           <small class="hint">Min 8 chars incl. upper, lower, number, special.</small>
           <small class="error" *ngIf="showError('password')">{{ msgFor('password') }}</small>
