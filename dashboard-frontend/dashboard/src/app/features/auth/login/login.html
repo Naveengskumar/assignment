@@ -1,0 +1,20 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card" novalidate>
+    <h2>Login</h2>
+
+    <label>
+      Email
+      <input formControlName="email" type="email" autocomplete="username" [class.invalid]="showError('email')" />
+      <small class="error" *ngIf="showError('email')">{{ messageFor('email') }}</small>
+    </label>
+
+    <label>
+      Password
+      <input formControlName="password" type="password" autocomplete="current-password" [class.invalid]="showError('password')" />
+      <small class="error" *ngIf="showError('password')">{{ messageFor('password') }}</small>
+    </label>
+
+    <button [disabled]="loading() || form.invalid" aria-busy="{{loading()}}">Sign in</button>
+    <p class="error server" *ngIf="error()">{{ error() }}</p>
+  </form>
+</div>

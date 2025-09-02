@@ -1,0 +1,122 @@
+<div class="wrap">
+  <header>
+    <h1>Users</h1>
+
+    <!-- Tabs -->
+   <nav class="tabs">
+  <button type="button"
+          [class.active]="activeTab()==='single'"
+          (click)="activeTab.set('single')">
+    Add Single
+  </button>
+  <button type="button"
+          [class.active]="activeTab()==='csv'"
+          (click)="activeTab.set('csv')">
+    Upload CSV
+  </button>
+    <button type="button"
+          (click)="goToNotifications()">
+    Notification
+  </button>
+</nav>
+
+    <!-- Single add form -->
+    <form *ngIf="activeTab()==='single'" [formGroup]="form" (ngSubmit)="onCreate()" class="add" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" placeholder="Jane Doe" />
+        <div class="messages"><small class="error" *ngIf="showError('name')">{{ msgFor('name') }}</small></div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="jane@example.com" />
+        <div class="messages"><small class="error" *ngIf="showError('email')">{{ msgFor('email') }}</small></div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="StrongPass#1" />
+        <div class="messages">
+          <small class="hint">Min 8 chars incl. upper, lower, number, special.</small>
+          <small class="error" *ngIf="showError('password')">{{ msgFor('password') }}</small>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role">
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+        <div class="messages"><small class="error" *ngIf="showError('role')">{{ msgFor('role') }}</small></div>
+      </div>
+
+      <div class="actions">
+        <button [disabled]="creating() || form.invalid" aria-busy="{{creating()}}">Add</button>
+      </div>
+    </form>
+
+    <!-- CSV upload / preview -->
+    <div *ngIf="activeTab()==='csv'" class="upload-area">
+      <label class="upload-btn">
+        <input type="file" accept=".csv" (change)="onFileChange($event)">
+       
+      </label>
+      <span class="filename" *ngIf="selectedFileName()">{{ selectedFileName() }}</span>
+
+      <div class="preview" *ngIf="preview() as rows">
+        <h3>Preview (first 10 rows)</h3>
+        <div class="meta" *ngIf="previewMeta() as m">
+          Total rows: {{m.totalRows}} • Valid: {{m.validCount}} • Errors: {{m.errorCount}}
+        </div>
+
+        <div class="table">
+          <div class="thead"><div>Name</div><div>Email</div><div>Password</div><div>Role</div></div>
+          <div class="row" *ngFor="let r of rows">
+            <div>{{r.name}}</div>
+            <div>{{r.email}}</div>
+            <div>{{r.password}}</div>
+            <div>{{r.role}}</div>
+          </div>
+        </div>
+
+        <button class="import" [disabled]="importing()" (click)="onImport()">Import</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Users table -->
+  <section class="table" *ngIf="(users$ | async) as users">
+    <div class="thead">
+      <div>Name</div><div>Email</div><div>Role</div>
+    </div>
+    <div class="row" *ngFor="let u of users">
+      <div>{{u.name}}</div>
+      <div>{{u.email}}</div>
+      <div><span class="badge" [class.admin]="u.role==='ADMIN'">{{u.role}}</span></div>
+    </div>
+    <p *ngIf="users.length===0" class="empty">No users yet</p>
+  </section>
+
+ <!-- Pagination -->
+<footer class="pager" *ngIf="vm$ | async as vm">
+  <button (click)="goTo(vm.page - 1, vm.limit)" [disabled]="vm.page <= 1">Prev</button>
+
+  <span>Page {{ vm.page }} / {{ Math.max(1, Math.ceil(vm.total / vm.limit)) }}</span>
+
+  <button
+    (click)="goTo(vm.page + 1, vm.limit)"
+    [disabled]="vm.page >= Math.ceil(vm.total / vm.limit)"
+  >
+    Next
+  </button>
+
+  <select [value]="vm.limit" (change)="goTo(1, +$any($event.target).value)">
+    <option [value]="5">5</option>
+    <option [value]="10">10</option>
+    <option [value]="20">20</option>
+  </select>
+</footer>
+
+</div>

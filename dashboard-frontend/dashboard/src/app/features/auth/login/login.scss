@@ -1,0 +1,10 @@
+.container { min-height: 100dvh; display:flex; align-items:center; justify-content:center; padding:16px; }
+form.card { width:100%; max-width:420px; display:grid; gap:12px; padding:20px; border:1px solid #e5e7eb; border-radius:12px; background:#fff; }
+label { display:grid; gap:6px; }
+input { padding:10px 12px; border-radius:8px; border:1px solid #d1d5db; }
+input.invalid { border-color:#ef4444; outline-color:#ef4444; }
+button { padding:10px 14px; border-radius:10px; border:0; background:#111827; color:#fff; cursor:pointer; }
+button[disabled]{ opacity:.7; cursor:not-allowed; }
+.error { color:#b91c1c; font-size:12px; }
+.error.server { margin:0; }
+@media (max-width: 480px) { form.card { padding:16px; } }

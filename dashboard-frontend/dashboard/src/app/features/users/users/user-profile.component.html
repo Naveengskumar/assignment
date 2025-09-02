@@ -1,0 +1,13 @@
+<div class="wrap">
+  <h1>My Profile</h1>
+  <p class="error" *ngIf="error()">{{ error() }}</p>
+  <div class="card" *ngIf="!error()">
+    <div *ngIf="loading()">Loading…</div>
+    <ng-container *ngIf="!loading() && data() as d">
+      <div class="row"><span>Name</span><span>{{ d.name }}</span></div>
+      <div class="row"><span>Email</span><span>{{ d.email }}</span></div>
+      <div class="row"><span>Role</span><span class="badge" [class.admin]="d.role==='ADMIN'">{{ d.role }}</span></div>
+      <div class="row" *ngIf="d.createdAt"><span>Joined</span><span>{{ d.createdAt | date:'medium' }}</span></div>
+    </ng-container>
+  </div>
+</div>
