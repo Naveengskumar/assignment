@@ -31,19 +31,18 @@ This single file documents both **backend (Node.js/Express + Socket.IO)** and **
 ## Specific APIs Used in This Project (from earlier chat notes)
 
 - **Users CRUD (Admin)** — `/api/v1/users`
-  - `GET /api/v1/users?page=1&limit=10&search=` — **paginated** list with optional `search` (name/email)
-  - `POST /api/v1/users` — create
-  - `GET /api/v1/users/:id` — read
-  - `PUT /api/v1/users/:id` — update
-  - `DELETE /api/v1/users/:id` — delete
-- **CSV Upload Preview** — `/api/v1/upload/csv`
-  - `POST /api/v1/upload/csv` — multipart/form-data (`file` field); backend returns preview (first 10 rows) + stats
-- **Notifications**
-  - **Socket connect:** Clients connect at server origin via Socket.IO and receive an initial alert (`connected`) and **periodic emits** (e.g., `ticker` every 15s).
+  - `GET /api/v1/users/me (auth)` - User profile
+  - `GET /api/v1/users` -  (ADMIN; page, limit, search)
+  - `POST /api/v1/users/upload/preview` — (ADMIN; upload.single('file'))
+  - `POST /api/v1/users/upload/bulk` — (ADMIN)
+  - `POST /api/v1/notifications/broadcast` - (ADMIN)
 - **Health check** — `GET /api/v1/health`
 
 
 ---
+
+- **Node.js Version:** 22.x LTS
+- **Angular version:latest
 
 ## Backend (Express + Socket.IO)
 
@@ -148,6 +147,3 @@ export const environment = {
 - `ngx serve`
 
 
-
-- This **single `README.md`** (covers both apps)
-- Optional: Postman collection + OpenAPI spec at root
