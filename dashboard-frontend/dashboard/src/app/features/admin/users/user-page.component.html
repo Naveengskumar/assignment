@@ -4,22 +4,22 @@
 
     <!-- Tabs -->
    <nav class="tabs">
-  <button type="button"
-          [class.active]="activeTab()==='single'"
-          (click)="activeTab.set('single')">
-    Add Single
-  </button>
-  <button type="button"
-          [class.active]="activeTab()==='csv'"
-          (click)="activeTab.set('csv')">
-    Upload CSV
-  </button>
     <button type="button"
-          (click)="goToNotifications()">
-    Notification
-  </button>
-  
-</nav>
+            [class.active]="activeTab()==='single'"
+            (click)="activeTab.set('single')">
+      Add Single
+    </button>
+    <button type="button"
+            [class.active]="activeTab()==='csv'"
+            (click)="activeTab.set('csv')">
+      Upload CSV
+    </button>
+      <button type="button"
+            (click)="goToNotifications()">
+      Notification
+      </button> 
+
+  </nav>
 
     <!-- Single add form -->
     <form *ngIf="activeTab()==='single'" [formGroup]="form" (ngSubmit)="onCreate()" class="add" novalidate>
