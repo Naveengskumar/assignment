@@ -466,15 +466,15 @@
 							"raw": "{\n  \"message\": \"Hello subscribers!\"\n}"
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/api/v1/notifications/broadcast",
+							"raw": "{{BASE_URL}}/api/v1/notify/task",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"notifications",
-								"broadcast"
+								"notify",
+								"task"
 							]
 						}
 					},
